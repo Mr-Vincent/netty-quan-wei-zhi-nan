@@ -17,11 +17,18 @@ public class TimeServerHandler extends ChannelHandlerAdapter{
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf buf = (ByteBuf)msg;
+        /*ByteBuf buf = (ByteBuf)msg;
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
         String body = new String(req,"UTF-8").substring(0,req.length - System.getProperty("line.separator").length());
         System.out.println("The time srver receive order: " + body + ";the counter is "+ ++counter);
+        String currTime = "QUERY TIMER ORDER".equalsIgnoreCase(body)  ? new Date(System.currentTimeMillis()).toString() :
+                "BAD ORDER";
+        currTime = currTime + System.getProperty("line.separator");
+        ByteBuf resp = Unpooled.copiedBuffer(currTime.getBytes());
+        ctx.writeAndFlush(resp);*/
+        String body = (String)msg;
+        System.out.println("The time server receive order :" + body +"; the counter is :" + ++counter);
         String currTime = "QUERY TIMER ORDER".equalsIgnoreCase(body)  ? new Date(System.currentTimeMillis()).toString() :
                 "BAD ORDER";
         currTime = currTime + System.getProperty("line.separator");
